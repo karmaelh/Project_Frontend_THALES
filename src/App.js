@@ -9,7 +9,6 @@ import RequireAuth from './components/RequireAuth';
 import Register from './components/Register';
 import ResetPassword from './components/ResetPassword';
 
-
 function App() {
   return (
     <>
@@ -28,4 +27,3 @@ function App() {
 }
 
 export default App;
-
