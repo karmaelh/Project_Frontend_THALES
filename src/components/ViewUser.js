@@ -13,7 +13,7 @@ export default function ViewUser() {
   useEffect(() => {
   userService.getById(id)
     .then((res) => {
-      setTimeout(() => setUser(res.data), 1000);
+      setTimeout(() => setUser(res.data), 3000 );
     })
     .catch(() => {
       alert("User not found.");

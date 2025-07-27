@@ -58,7 +58,7 @@ export default function ListUsers() {
     <div className="container mt-5">
       <div className="card p-4 shadow-sm">
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <h2>Employee Directory</h2>
+          <h2>Our People</h2>
           <select
             className="form-select w-auto"
             value={sortKey}

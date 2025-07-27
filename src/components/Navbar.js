@@ -39,7 +39,7 @@ return (
         <img
           src={logo}
           alt="Thales Logo"
-          style={{ height: '95px', objectFit: 'contain' }}
+          style={{ height: '100px', objectFit: 'contain' }}
         />
       </Link>
 
