@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Preloader from './Preloader';
+
 
 export default function ResetPassword() {
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleReset = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
 
     try {
       const response = await axios.put('http://localhost:5000/api/v1/auth/reset-password', {
@@ -23,8 +28,13 @@ export default function ResetPassword() {
       console.error(err);
       setError('Failed to reset password. Please check the email.');
       setSuccess(false);
+    } finally {
+    setLoading(false); 
     }
   };
+
+  if (loading) return <Preloader />;
+
 
   return (
     <div className="container mt-5">

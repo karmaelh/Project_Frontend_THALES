@@ -5,7 +5,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // pour bloquer pendant chargement
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
         const res = await axios.get("/api/v1/users/me", { withCredentials: true });
         setUser(res.data);
       } catch (err) {
-        setUser(null); // pas connecté
+        setUser(null);
       } finally {
         setLoading(false);
       }

@@ -1,22 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userService } from '../services/UserService';
+import Preloader from './Preloader';
+
 
 export default function ListUsers() {
   const [users, setUsers] = useState([]);
   const [sortKey, setSortKey] = useState('username');
+  const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
 
+  //useEffect(() => {
+    //userService.getAll()
+      //.then(res => {
+        //console.log('API Response:', res.data);
+        //setUsers(res.data);
+         //setLoading(false);
+      //})
+      //.catch(err => {
+        //console.error("Error fetching users:", err);
+        //setLoading(false);
+      //});
+  //}, []);
+
   useEffect(() => {
+  setTimeout(() => {
     userService.getAll()
       .then(res => {
-        console.log('API Response:', res.data);
         setUsers(res.data);
+        setLoading(false);
       })
       .catch(err => {
         console.error("Error fetching users:", err);
+        setLoading(false);
       });
-  }, []);
+  }, 1000); 
+}, []);
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
@@ -31,6 +50,9 @@ export default function ListUsers() {
     if (!b[sortKey]) return -1;
     return a[sortKey].toLowerCase().localeCompare(b[sortKey].toLowerCase());
   });
+
+  if (loading) return <Preloader />;
+
 
   return (
     <div className="container mt-5">
@@ -64,7 +86,9 @@ export default function ListUsers() {
               <th>Email</th>
               <th>Position</th>
               <th>Department</th>
+              <th>Hire Date</th>
               <th>Actions</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -101,6 +125,7 @@ export default function ListUsers() {
                   <td>{user.email}</td>
                   <td>{user.position || '-'}</td>
                   <td>{user.department || '-'}</td>
+                  <td>{user.hire_date ? new Date(user.hire_date).toLocaleDateString() : '-'}</td>
                   <td>
                     <button
                       className="btn btn-warning btn-sm me-2"
@@ -125,7 +150,7 @@ export default function ListUsers() {
               ))
             ) : (
               <tr>
-                <td colSpan="6" className="text-center">
+                <td colSpan="7" className="text-center">
                   No users found.
                 </td>
               </tr>

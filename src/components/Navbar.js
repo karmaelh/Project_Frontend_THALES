@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import logo from '../assets/thales-logo.png';
 
 export default function Navbar() {
   const [username, setUsername] = useState('');
@@ -31,37 +32,45 @@ export default function Navbar() {
     navigate('/login');
   };
 
-  return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
-      <div className="container">
-        <Link className="navbar-brand fw-bold" to="/">UserManager</Link>
-        <div className="collapse navbar-collapse">
-          <ul className="navbar-nav ms-auto">
-            {token ? (
-              <>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/">Users</Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/add">Add User</Link>
-                </li>
-                 <li className="nav-item d-flex align-items-center me-3">
-                  <span className="nav-link"><strong>{username}</strong></span>
-                </li>
-                <li className="nav-item">
-                  <button className="btn btn-outline-danger ms-3" onClick={handleLogout}>
-                    Logout
-                  </button>
-                </li>
-              </>
-            ) : (
+return (
+  <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-1">
+    <div className="container align-items-center">
+      <Link className="navbar-brand d-flex align-items-center" to="/">
+        <img
+          src={logo}
+          alt="Thales Logo"
+          style={{ height: '95px', objectFit: 'contain' }}
+        />
+      </Link>
+
+      <div className="collapse navbar-collapse">
+        <ul className="navbar-nav ms-auto align-items-center">
+          {token ? (
+            <>
               <li className="nav-item">
-                <Link className="nav-link" to="/login">Login</Link>
+                <Link className="nav-link" to="/">Users</Link>
               </li>
-            )}
-          </ul>
-        </div>
+              <li className="nav-item">
+                <Link className="nav-link" to="/add">Add User</Link>
+              </li>
+              <li className="nav-item d-flex align-items-center me-3">
+                <span className="nav-link"><strong>{username}</strong></span>
+              </li>
+              <li className="nav-item">
+                <button className="btn btn-outline-danger ms-3" onClick={handleLogout}>
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <li className="nav-item">
+              <Link className="nav-link" to="/login">Login</Link>
+            </li>
+          )}
+        </ul>
       </div>
-    </nav>
-  );
+    </div>
+  </nav>
+);
+
 }

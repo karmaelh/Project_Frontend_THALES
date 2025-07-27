@@ -1,29 +1,44 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Preloader from './Preloader';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       const response = await axios.post('http://127.0.0.1:5000/api/v1/auth/login', {
         email,
         password
       });
+      
 
       const { access_token } = response.data;
-      localStorage.setItem('token', access_token); // Sauvegarde du token
-      navigate('/'); // Redirection vers la liste des utilisateurs
-
+      localStorage.setItem('token', access_token); 
+       setTimeout(() => {
+      navigate('/');
+    }, 1000);
     } catch (error) {
       console.error('Login error:', error);
       alert('Login failed: Invalid credentials');
-    }
+      setTimeout(() => setLoading(false), 1000)
+    } finally {
+      setTimeout(() => setLoading(false), 1000);
+}
+
   };
+
+  if (loading) {
+  return <Preloader />;
+}
+
 
   return (
     <div className="container mt-5">

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Preloader from './Preloader';
 
 export default function Register() {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false);
+
   const [user, setUser] = useState({
     username: '',
     email: '',
@@ -23,14 +27,21 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       await axios.post('http://localhost:5000/api/v1/users/', user);
       alert('Account created. You can now log in.');
       navigate('/login');
     } catch (error) {
       alert(error.response?.data?.error || 'Registration failed.');
-    }
+    } finally {
+      setLoading(false);
+    }  
   };
+  
+if (loading) return <Preloader />;
 
   return (
     <div className="container mt-5">
