@@ -10,19 +10,6 @@ export default function ListUsers() {
   const [loading, setLoading] = useState(true); 
   const navigate = useNavigate();
 
-  //useEffect(() => {
-    //userService.getAll()
-      //.then(res => {
-        //console.log('API Response:', res.data);
-        //setUsers(res.data);
-         //setLoading(false);
-      //})
-      //.catch(err => {
-        //console.error("Error fetching users:", err);
-        //setLoading(false);
-      //});
-  //}, []);
-
   useEffect(() => {
   setTimeout(() => {
     userService.getAll()

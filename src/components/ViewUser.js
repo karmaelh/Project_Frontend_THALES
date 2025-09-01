@@ -21,16 +21,6 @@ export default function ViewUser() {
     });
 }, [id, navigate]);
 
-//useEffect(() => {
- // userService.getById(id)
-  //  .then((res) => setUser(res.data))
-    //.catch(() => {
-      //alert("User not found.");
-      //navigate('/');
-    //});
-//}, [id, navigate]);
-
-
   if (!user) return <Preloader />;
 
 

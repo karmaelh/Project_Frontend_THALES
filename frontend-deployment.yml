@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: thales-directory-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: thales-directory-fe
+          image: thales-directory-fe:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
